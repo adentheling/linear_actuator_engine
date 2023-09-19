@@ -1,0 +1,50 @@
+import math
+import time
+
+
+
+'''#big or small
+d = 7
+r = 1
+a_degrees = 0
+mostoutput = 6
+leastoutput = 8
+outputangle = 4808
+'''
+d = 13
+r = 2
+a_degrees = 0
+mostoutput = 11
+leastoutput = 15
+outputangle = -8000
+
+
+while True:
+    for offset, sequence_name in [(0, "B"), (90, "C"), (180, "D"), (270, "E")]:
+        # Calculate the adjusted angle by adding the offset
+        adjusted_a_degrees = (a_degrees + offset) % 360
+        
+        # Convert degrees to radians
+        a_radians = math.radians(adjusted_a_degrees)
+        
+        # Calculate l using the formula
+        l = math.sqrt((d + r * math.cos(a_radians))**2 + (r * math.sin(a_radians))**2)
+        
+        # Map the value (11-15) to the range (0 to -8000)
+        mapped_value = ((l - leastoutput) / (mostoutput - leastoutput)) * outputangle
+        
+        # Print the value of a, the corresponding value of l, and the mapped value with a space
+        print(f"Sequence {sequence_name}: a = {adjusted_a_degrees} degrees, l = {l}, Mapped Value = {mapped_value}")
+    
+    # Add a space between each sequence
+    print()
+    
+    # Increment the value of a by a small increment (e.g., 1 degree)
+    a_degrees += 1
+    
+    # Reset a to 0 degrees when it reaches or exceeds 360 degrees
+    if a_degrees >= 360:
+        a_degrees = 0
+    
+    # Set the delay between iterations to 0.5 seconds
+    time.sleep(0.1)
